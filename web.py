@@ -1,10 +1,14 @@
 from flask import Flask, request, session
 import json
+import time
 
 app = Flask(__name__)
-users = {'asd': 2143}
+users = {}
 with open('users.json', 'r') as f:
-    users = json.loads(f.read())
+    print('---------------------')
+    users = json.loads(str(f.read()))
+    print('Config loaded:\n' + str(users))
+    print('---------------------')
 
 def save():
     with open('users.json', 'w') as f:
@@ -12,8 +16,7 @@ def save():
 
 @app.route('/admin')
 def adminPage():
-    save()
-    return 'adminpage'
+    return json.dumps(users)
 
 @app.route('/user', methods = ['GET', 'POST'])
 def userPage():
