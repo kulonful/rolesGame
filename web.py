@@ -1,4 +1,5 @@
-from flask import Flask, request, session
+# -*- coding: utf-8 -*-
+from flask import Flask, request, session, render_template
 import json
 import time
 
@@ -16,16 +17,16 @@ def save():
 
 @app.route('/admin')
 def adminPage():
+    session['anime'] = 25
     return json.dumps(users)
 
-@app.route('/user', methods = ['GET', 'POST'])
+@app.route('/client')
 def userPage():
-    if request.method == 'GET':
-        print('todo')
+    if 'login' in session:
+        print(True)
         # TODO
-    elif request.method == 'POST':
-        print('todo')
-        # TODO
+    else:
+        return render_template('cu.html'), 200
 
 @app.route('/reset')
 def resetPage():
@@ -34,4 +35,5 @@ def resetPage():
     save()
     return 'success reset', 200
 
+app.secret_key = 'hjnfshNcq48cqn@q9nc'
 app.run(host = '0.0.0.0', port = 80)
