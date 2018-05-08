@@ -24,7 +24,8 @@ def userPage():
         print('todo')
         # TODO
 
-@app.route('/reset'):
+@app.route('/reset')
+def resetPage():
     global users
     users = {}
     save()
